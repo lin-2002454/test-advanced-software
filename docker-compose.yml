@@ -1,0 +1,41 @@
+# version: '3.8'
+
+# services:
+#   task-service:
+#     build:
+#       context: ./backend/task-service
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       - MONGO_URI=mongodb://task-db:27017/task_app
+#     depends_on:
+#       - task-db  
+
+  
+#   task-db:
+#     image: mongo:latest  
+#     ports:
+#       - "27018:27017" 
+#     environment:
+#       - MONGO_INITDB_DATABASE=task_app 
+
+  
+version: '3.8'
+
+services:
+  task-service:
+    build:
+      context: ./backend/task-service
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/test_app
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=test_app

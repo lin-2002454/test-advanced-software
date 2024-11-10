@@ -23,6 +23,9 @@ connectDB();
 
 
 app.use(express.json()); // Middleware om JSON-lichaam van een request te parsen
+app.get('/', (req, res) => {
+  res.send('Hallo World!')
+});
 
 const taskRoutes = require('./routes/taskRoutes');
 
@@ -38,9 +41,7 @@ app.listen(PORT, () => {
 
 // app.use(express.json());
 
-// app.get('/', (req, res) => {
-//     res.send('Hallo World!')
-// });
+
 
 // app.listen(port, () => {
 //   console.log(`Server running at http://localhost:${port}`);
