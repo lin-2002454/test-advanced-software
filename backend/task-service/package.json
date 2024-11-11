@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node testing/loadtest.js",
     "start": "nodemon index.js"
   },
   "keywords": [],
@@ -13,6 +13,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
+    "loadtest": "^8.0.9",
     "mongoose": "^8.8.0"
   },
   "devDependencies": {

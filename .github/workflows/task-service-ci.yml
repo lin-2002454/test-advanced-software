@@ -25,10 +25,9 @@ jobs:
         run: npm install
         working-directory: ./backend/task-service
 
-  
-      # - name: Run tests
-      #   run: npm test
-      #   working-directory: ./backend
+      - name: Run tests
+        run: npm test
+        working-directory: ./backend/task-service
 
       # - name: Lint code
       #   run: npm run lint
