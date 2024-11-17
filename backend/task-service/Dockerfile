@@ -1,20 +1,29 @@
-# Gebruik een Node.js-basisimage
-FROM node:20
+# First stage: Build the application
+FROM node:20-alpine AS build
 
-# Maak een werkdirectory aan
+# Set the working directory
 WORKDIR /app
 
-# Kopieer `package.json` en `package-lock.json`
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Installeer de dependencies
+# Install dependencies
 RUN npm ci
 
-# Kopieer de rest van de applicatiecode
+# Copy the rest of the application code
 COPY . .
 
-# Stel de poort in waarop de service zal draaien
+# Second stage: Create the final image
+FROM node:20-alpine
+
+# Set the working directory
+WORKDIR /app
+
+# Copy only the necessary files from the build stage
+COPY --from=build /app ./
+
+# Expose the port on which the service will run
 EXPOSE 3000
 
-# Start de applicatie
+# Start the application
 CMD ["node", "index.js"]
