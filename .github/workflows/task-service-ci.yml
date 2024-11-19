@@ -62,8 +62,8 @@ jobs:
       - name: Azure WebApp Deploy
         uses: azure/webapps-deploy@v2
         with:
-          app-name: task-service  
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  
-          package: 'ghcr.io/${{ github.repository_owner }}/task-service:latest'  
+          app-name: task-service 
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ghcr.io/${{ github.repository_owner }}/task-service:lates
 
       
