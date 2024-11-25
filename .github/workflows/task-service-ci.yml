@@ -30,6 +30,12 @@ jobs:
         run: npm install
         working-directory: ./backend/task-service
 
+        
+      - name: Start server
+        run: npm start 
+        working-directory: ./backend/task-service
+
+
       - name: Run tests
         run: npm test
         working-directory: ./backend/task-service
