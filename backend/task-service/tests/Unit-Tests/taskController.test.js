@@ -1,6 +1,6 @@
 // taskController.test.js
-const Task = require('../models/Task'); // Het model dat je moet mocken
-const { getTasks, getTaskById, createTask, updateTask, deleteTask } = require('../controllers/taskController');
+const Task = require('../../models/Task'); // Het model dat je moet mocken
+const { getTasks, getTaskById, createTask, updateTask, deleteTask } = require('../../controllers/taskController');
 
 // Mock Express response object
 const res = {
@@ -9,7 +9,7 @@ const res = {
 };
 
 // Mock de Mongoose Task model
-jest.mock('../models/Task');
+jest.mock('../../models/Task');
 
 describe('Task Controller', () => {
   beforeEach(() => {
