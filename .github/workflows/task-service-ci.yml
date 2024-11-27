@@ -55,8 +55,10 @@ jobs:
         run: |
           npm install -g newman
           newman run ./backend/task-service/tests/postman/Task-service-Endpoints-tests.postman_collection.json \
-          -e ./backend/task-service/tests/postman/Task-service-Endpoints-tests.postman_environment.json ./backend/task-service/tests/postman
-
+          -e ./backend/task-service/tests/postman/Task-service-Endpoints-tests.postman_environment.json ./backend/task-service/tests/postman &
+      - name: Wait for server
+        run: sleep 5
+        
       - name: check server
         run: curl 127.0.0.1:3000
 
