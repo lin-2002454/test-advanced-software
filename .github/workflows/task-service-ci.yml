@@ -40,11 +40,11 @@ jobs:
         run: npm test
         working-directory: ./backend/task-service
 
-      # - name: Run Newman API Tests
-      #   run: |
-      #     npm install -g newman
-      #     newman run ./backend/task-service/tests/postman/Task-service-Endpoints-tests.postman_collection.json \
-      #     -e ./backend/task-service/tests/postman/Task-service-Endpoints-tests.postman_environment.json
+      - name: Run Newman API Tests
+        run: |
+          npm install -g newman
+          newman run ./backend/task-service/tests/postman/Task-service-Endpoints-tests.postman_collection.json \
+          -e ./backend/task-service/tests/postman/Task-service-Endpoints-tests.postman_environment.json
 
 
       # - name: Lint code
