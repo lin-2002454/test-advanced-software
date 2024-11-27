@@ -30,7 +30,7 @@ jobs:
 
         
       - name: Start server
-        run: node index.js > out.log 2> err.log
+        run: node index.js > out.log 2> err.log &
         working-directory: ./backend/task-service
 
       - name: Check content
