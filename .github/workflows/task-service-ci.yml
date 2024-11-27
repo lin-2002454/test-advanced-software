@@ -44,11 +44,7 @@ jobs:
         run: npm test
         working-directory: ./backend/task-service
 
-      - name: check content file
-        run: cat ./backend/task-service/tests/postman/Task-service-Endpoints-tests.postman_collection.json 
-
-      - name: check content file
-        run: cat ./backend/task-service/tests/postman/Task-service-Endpoints-tests.postman_environment.json
+     
 
 
       - name: Run Newman API Tests
@@ -56,6 +52,9 @@ jobs:
           npm install -g newman
           newman run ./backend/task-service/tests/postman/Task-service-Endpoints-tests.postman_collection.json \
           -e ./backend/task-service/tests/postman/Task-service-Endpoints-tests.postman_environment.json
+
+      - name: check server
+        run: curl 127.0.0.1:3000
 
 
       # - name: Lint code
