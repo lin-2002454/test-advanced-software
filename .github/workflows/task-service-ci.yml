@@ -38,6 +38,10 @@ jobs:
       - name: Wait for server
         run: sleep 10
 
+      - name: check server
+        run: ping -c 1 http://localhost:3000/ ; echo $?
+
+
 
       - name: Run tests
         run: npm test
