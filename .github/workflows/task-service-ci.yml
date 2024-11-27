@@ -30,7 +30,11 @@ jobs:
 
         
       - name: Start server
-        run: node index.js &
+        run: node index.js > out.log 2> err.log
+        working-directory: ./backend/task-service
+
+      - name: Check content
+        run: ls
         working-directory: ./backend/task-service
 
       - name: Wait for server
@@ -55,6 +59,19 @@ jobs:
 
       - name: check server
         run: curl 127.0.0.1:3000
+
+      - name: check content file
+        run: cat  out.log 
+        working-directory: ./backend/task-service
+
+      - name: check content file
+        run: cat  err.log
+        working-directory: ./backend/task-service
+
+
+
+      # - name: check content file
+      #   run: cat ./backend/task-service/tests/postman/Task-service-Endpoints-tests.postman_environment.json
 
 
       # - name: Lint code
