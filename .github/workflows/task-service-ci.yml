@@ -35,6 +35,9 @@ jobs:
         run: node index.js &
         working-directory: ./backend/task-service
 
+      - name: Wait for server
+        run: sleep 10
+
 
       - name: Run tests
         run: npm test
