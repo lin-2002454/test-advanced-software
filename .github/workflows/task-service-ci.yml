@@ -39,8 +39,7 @@ jobs:
         run: sleep 10
 
       - name: check server
-        run: ping -c 1 http://localhost:3000/ ; echo $?
-
+        run: curl http://localhost:3000
 
 
       - name: Run tests
