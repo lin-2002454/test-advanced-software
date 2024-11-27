@@ -31,9 +31,9 @@ jobs:
         working-directory: ./backend/task-service
 
         
-      # - name: Start server
-      #   run: node index.js &
-      #   working-directory: ./backend/task-service
+      - name: Start server
+        run: node index.js &
+        working-directory: ./backend/task-service
 
 
       - name: Run tests
