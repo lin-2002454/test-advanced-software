@@ -1,0 +1,93 @@
+/* Algemene stijlen voor de Task Manager */
+.task-manager-container {
+    padding: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Formulier stijlen */
+  .task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .task-form input,
+  .task-form textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .task-form button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .task-form button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Lijst van taken */
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .task-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-item h3 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  
+  .task-item p {
+    margin: 5px 0;
+  }
+  
+  .task-item button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .task-item button:hover {
+    opacity: 0.8;
+  }
+  
+  .task-item button:first-of-type {
+    background-color: #4caf50;
+    color: white;
+  }
+
+  
+  .task-item button:last-of-type {
+    background-color: #0275d8;
+    color: white;
+  }
+
+  /* Update knop (blauwe kleur) */
+.task-item button:nth-of-type(2) {
+    background-color: #f44336; /* Blauwe kleur */
+    color: white;
+  }
+  
+
+  
+  

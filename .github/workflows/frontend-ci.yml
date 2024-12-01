@@ -1,0 +1,39 @@
+name: Frontend CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Stap 1: Code uitchecken
+      - uses: actions/checkout@v3  # Gebruik de nieuwste versie
+
+      # Stap 2: Node.js instellen
+      - name: Setup Node.js
+        uses: actions/setup-node@v3  # Gebruik de nieuwste versie
+        with:
+          node-version: '20.17.0'  # Zorg ervoor dat dit overeenkomt met je Node.js versie
+
+      # Stap 3: Dependencies installeren
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ./frontend  # Zorg ervoor dat het pad klopt met je projectstructuur
+
+      # Stap 4: Build uitvoeren
+      - name: Run Build
+        run: npm run build
+        working-directory: ./frontend
+
+      # Stap 5: Code linten
+      - name: Lint code
+        run: npm run lint
+        working-directory: ./frontend
+
+     
