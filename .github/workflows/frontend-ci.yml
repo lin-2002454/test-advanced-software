@@ -44,4 +44,5 @@ jobs:
       # Run Cypress tests
       - name: Run Cypress tests
         run:  npm run test:e2e
+        working-directory: ./frontend/cypress/e2e
      
