@@ -28,7 +28,7 @@ jobs:
 
       # Stap 4: Start frontend server in de achtergrond
       - name: Start frontend server
-        run:  nohup npm start &  # Start de server op de achtergrond
+        run:    nohup npm run dev &  # Start de ontwikkelserver op de achtergrond
         working-directory: ./frontend
 
      # Stap 5: Wacht even zodat de server opstart
