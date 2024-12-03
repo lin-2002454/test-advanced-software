@@ -36,4 +36,9 @@ jobs:
         run: npm run lint
         working-directory: ./frontend
 
+      # Stap 6: Testen
+      - name: Run tests
+        run: npm test
+        working-directory: ./frontend/tests
+
      
