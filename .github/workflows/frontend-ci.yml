@@ -41,4 +41,7 @@ jobs:
         run: npm test
         working-directory: ./frontend/tests
 
+      # Run Cypress tests
+      - name: Run Cypress tests
+        run:  npm run test:e2e
      
