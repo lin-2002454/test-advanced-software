@@ -26,22 +26,31 @@ jobs:
         run: npm install
         working-directory: ./frontend  # Zorg ervoor dat het pad klopt met je projectstructuur
 
-      # Stap 4: Build uitvoeren
+      # Stap 4: Start frontend server in de achtergrond
+      - name: Start frontend server
+        run:  nohup npm start &  # Start de server op de achtergrond
+        working-directory: ./frontend
+
+     # Stap 5: Wacht even zodat de server opstart
+      - name: Wait for the server to start
+        run: sleep 10  # Geef de server even tijd om op te starten
+
+      # Stap 6: Build uitvoeren
       - name: Run Build
         run: npm run build
         working-directory: ./frontend
 
-      # Stap 5: Code linten
+      # Stap 7: Code linten
       - name: Lint code
         run: npm run lint
         working-directory: ./frontend
 
-      # Stap 6: Testen
+      # Stap 8: Testen
       - name: Run tests
         run: npm test
         working-directory: ./frontend/tests
 
-     # Stap 7: Run Cypress tests (in headless mode)
+     # Stap 9: Run Cypress tests (in headless mode)
       - name: Run Cypress tests
         run: npx cypress run
         working-directory: ./frontend
