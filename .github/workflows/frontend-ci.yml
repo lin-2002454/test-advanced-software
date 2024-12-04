@@ -26,32 +26,38 @@ jobs:
         run: npm install
         working-directory: ./frontend  # Zorg ervoor dat het pad klopt met je projectstructuur
 
-      # Stap 4: Start frontend server in de achtergrond
-      - name: Start frontend server
-        run:    nohup npm run dev &  # Start de ontwikkelserver op de achtergrond
-        working-directory: ./frontend
-
-     # Stap 5: Wacht even zodat de server opstart
-      - name: Wait for the server to start
-        run: sleep 10  # Geef de server even tijd om op te starten
-
-      # Stap 6: Build uitvoeren
+      # Stap 4: Build uitvoeren
       - name: Run Build
         run: npm run build
         working-directory: ./frontend
 
-      # Stap 7: Code linten
+
+      # Stap 5: Start frontend server in de achtergrond
+      - name: Start frontend server
+        run:    nohup npm run dev &  # Start de ontwikkelserver op de achtergrond
+        working-directory: ./frontend
+
+    
+      # Stap 6: Code linten
       - name: Lint code
         run: npm run lint
         working-directory: ./frontend
 
-      # Stap 8: Testen
+      # Stap 7: Testen
       - name: Run tests
         run: npm test
         working-directory: ./frontend/tests
 
-     # Stap 9: Run Cypress tests (in headless mode)
+     # Stap 8: Run Cypress tests (in headless mode)
       - name: Run Cypress tests
         run: npx cypress run
         working-directory: ./frontend
      
+     # Stap 9: Deploy naar Azure Web App (Gebruik publicatieprofiel als secret)
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+            app-name: 'TaskManagerUI' 
+            publish-profile: ${{ secrets.AZURE_WEBAPP_UI_PUBLISH_PROFILE }} 
+            package: ./frontend/build  
+            
