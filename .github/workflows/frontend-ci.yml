@@ -60,4 +60,5 @@ jobs:
             app-name: 'TaskManagerUI' 
             publish-profile: ${{ secrets.AZURE_WEBAPP_UI_PUBLISH_PROFILE }} 
             package: ./frontend/dist
+      #Stap 10:
             
