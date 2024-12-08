@@ -26,69 +26,65 @@ jobs:
         run: npm install
         working-directory: ./frontend  # Zorg ervoor dat het pad klopt met je projectstructuur
 
-      # Stap 4: Build uitvoeren
-      - name: Run Build
-        run: npm run build
-        working-directory: ./frontend
-
-
-      # Stap 5: Start frontend server in de achtergrond
+        
+      # Stap 4: Start frontend server in de achtergrond
       - name: Start frontend server
         run:    nohup npm run dev &  # Start de ontwikkelserver op de achtergrond
         working-directory: ./frontend
 
     
-      # Stap 6: Code linten
+      # Stap 5: Code linten
       - name: Lint code
         run: npm run lint
         working-directory: ./frontend
 
-      # Stap 7: Testen
+      # Stap 6: Testen
       - name: Run tests
         run: npm test
         working-directory: ./frontend/tests
 
-     # Stap 8: Run Cypress tests (in headless mode)
+     # Stap 7: Run Cypress tests (in headless mode)
       - name: Run Cypress tests
         run: npx cypress run
         working-directory: ./frontend
 
-     # Stap 9: Upload de build als artifact
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v3
-        with:  
-          name: node-app  
-          path: ./frontend/dist  
+     # Stap 8: Bouw de Docker image
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build  # Zorgt ervoor dat de 'deploy' job pas draait als de 'build' job succesvol is
-
-    steps:
-      # Stap 1: Code uitchecken
-      - uses: actions/checkout@v3
-
-      # Stap 2: Download build artifact
-      - name: Download artifact
-        uses: actions/download-artifact@v3
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
         with:
-          name: node-app  # Zorg ervoor dat dit overeenkomt met de naam van het artifact
-          path: ./frontend/dist  # Het pad waar het artifact gedownload moet worden
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_PAT }}
+          registry: ghcr.io                    
 
-      # Stap 3: Deploy naar Azure Web App
-      - name: Deploy to Azure Web App
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/frontend-image:latest ./frontend
+          
+      # Push de Docker image naar de GitHub Container Registry
+      - name: Push Docker image to GitHub Container Registry
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/frontend-image:latest
+  
+      - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'TaskManagerUI'  # Zorg ervoor dat dit de juiste naam van je Azure app is
-          publish-profile: ${{ secrets.AZURE_WEBAPP_UI_PUBLISH_PROFILE }}  # Gebruik je Azure publish profile secret
-          package: ./frontend/dist  # Deploy de inhoud van de gedownloade build
-     
+                app-name: 'TaskManagementToolUI'
+                publish-profile: ${{ secrets.AZURE_WEBAPP_UI_PUBLISH_PROFILE }} 
+                images: 'ghcr.io/${{ github.repository_owner }}/frontend-image:latest'
+                 
+    
+     # Stap 4: Build uitvoeren
+      # - name: Run Build
+      #   run: npm run build
+      #   working-directory: ./frontend
      # Stap 9: Deploy naar Azure Web App (Gebruik publicatieprofiel als secret)
       # - name: Deploy to Azure Web App
       #   uses: azure/webapps-deploy@v2
       #   with:
       #       app-name: 'TaskManagerUI' 
-      #       publish-profile: ${{ secrets.AZURE_WEBAPP_UI_PUBLISH_PROFILE }} 
+      #       publish-profile: 
       #       package: ./frontend/dist
-      #Stap 10:
-            
+      

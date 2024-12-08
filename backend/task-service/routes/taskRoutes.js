@@ -6,6 +6,7 @@ const {
     createTask,
     updateTask,
     deleteTask,
+    deleteTasks,
   } = require('../controllers/taskController');
 
 // Haal alle taken op
@@ -22,5 +23,7 @@ router.put('/:id', updateTask);
 
 // Verwijder een taak
 router.delete('/:id', deleteTask);
+
+router.delete('/', deleteTasks);
 
 module.exports = router;

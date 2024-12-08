@@ -69,6 +69,15 @@ const deleteTask = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+//verwijder alle taken
+const deleteTasks = async (req, res) => {
+  try {
+    const tasks = await Task.deleteMany({});
+    res.json(tasks);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 module.exports = {
   getTasks,
@@ -76,4 +85,5 @@ module.exports = {
   createTask,
   updateTask,
   deleteTask,
+  deleteTasks
 };
