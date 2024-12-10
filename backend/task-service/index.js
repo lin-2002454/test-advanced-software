@@ -12,7 +12,8 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:5173', // Je frontend URL
+  origin: 'http://localhost:5173', //  frontend URL
+  'https://taskmanagementtoolui-e3hzesc9fxb2gngc.westeurope-01.azurewebsites.net'  
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Geautoriseerde methoden
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
