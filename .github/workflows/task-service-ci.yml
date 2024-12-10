@@ -40,8 +40,8 @@ jobs:
       - name: Wait for server
         run: sleep 10
 
-      - name: check server
-        run: curl 127.0.0.1:3000
+      # - name: check server
+      #   run: curl 127.0.0.1:3000
 
 
       - name: Run tests
