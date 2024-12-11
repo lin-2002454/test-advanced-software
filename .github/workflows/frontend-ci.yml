@@ -28,8 +28,9 @@ jobs:
 
       #Build the app
       - name: Build the project
-        run: |
-          npm run build 
+        run: npm run build 
+        working-directory: ./frontend
+        
         
       # Stap 4: Start frontend server in de achtergrond
       - name: Start frontend server
