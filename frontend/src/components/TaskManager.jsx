@@ -2,62 +2,62 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/TaskManager.css";
 
-
 const TaskManager = () => {
   const [tasks, setTasks] = useState([]); // Huidige taken
   const [newTask, setNewTask] = useState({ title: "", description: "", completed: false });
-  const [editTask, setEditTask] = useState(null);  // Dit is voor de taak die we willen bewerken
-
-
-  // const taskServiceUrl = import.meta.env.VITE_TASK_SERVICE_URL;
-  // console.log(taskServiceUrl); // Dit zou je de waarde van je variabele moeten geven
-  
+  const [editTask, setEditTask] = useState(null); // Dit is voor de taak die we willen bewerken
 
   // Ophalen van de taken bij het laden van de component
   useEffect(() => {
-    axios.get("http://localhost:3000/api/tasks")
-      .then(response => {
+    axios
+      .get("http://localhost:3000/api/tasks")
+      .then((response) => {
         setTasks(response.data);
       })
-      .catch(error => console.error("Er is een fout bij het ophalen van de taken", error));
+      .catch((error) => console.error("Er is een fout bij het ophalen van de taken:", error));
   }, []);
 
   // Toevoegen van een nieuwe taak
   const handleAddTask = (e) => {
     e.preventDefault();
 
-    axios.post("http://localhost:3000/api/tasks", newTask)
-      .then(response => {
+    axios
+      .post("http://localhost:3000/api/tasks", newTask)
+      .then((response) => {
         setTasks([...tasks, response.data]); // Voeg de nieuwe taak toe aan de lijst
         setNewTask({ title: "", description: "", completed: false }); // Reset het formulier
       })
-      .catch(error => console.error("Er is een fout bij het toevoegen van de taak", error));
+      .catch((error) => console.error("Er is een fout bij het toevoegen van de taak:", error));
   };
 
   // Verwijderen van een taak
   const handleDeleteTask = (taskId) => {
-    axios.delete(`http://localhost:3000/api/tasks/${taskId}`)
+    axios
+      .delete(`http://localhost:3000/api/tasks/${taskId}`)
       .then(() => {
-        setTasks(tasks.filter(task => task._id !== taskId)); // Verwijder de taak uit de lijst
+        setTasks(tasks.filter((task) => task._id !== taskId)); // Verwijder de taak uit de lijst
       })
-      .catch(error => console.error("Er is een fout bij het verwijderen van de taak", error));
+      .catch((error) => console.error("Er is een fout bij het verwijderen van de taak:", error));
   };
 
   // Bijwerken van de taakstatus
   const handleToggleCompletion = (taskId) => {
-    const taskToUpdate = tasks.find(task => task._id === taskId);
+    const taskToUpdate = tasks.find((task) => task._id === taskId);
+    if (!taskToUpdate) return;
+
     const updatedTask = { ...taskToUpdate, completed: !taskToUpdate.completed };
 
-    axios.put(`http://localhost:3000/api/tasks/${taskId}`, updatedTask)
-      .then(response => {
-        setTasks(tasks.map(task => task._id === taskId ? response.data : task));
+    axios
+      .put(`http://localhost:3000/api/tasks/${taskId}`, updatedTask)
+      .then((response) => {
+        setTasks(tasks.map((task) => (task._id === taskId ? response.data : task)));
       })
-      .catch(error => console.error("Er is een fout bij het bijwerken van de taak", error));
+      .catch((error) => console.error("Er is een fout bij het bijwerken van de taak:", error));
   };
 
   // Start bewerkingsmodus voor taak
   const handleEditTask = (task) => {
-    setEditTask(task);  // Zet de taak die je wilt bewerken
+    setEditTask(task); // Zet de taak die je wilt bewerken
   };
 
   // Taak bijwerken
@@ -65,12 +65,13 @@ const TaskManager = () => {
     e.preventDefault();
     if (!editTask) return;
 
-    axios.put(`http://localhost:3000/${editTask._id}`, editTask)
-      .then(response => {
-        setTasks(tasks.map(task => task._id === editTask._id ? response.data : task));
-        setEditTask(null);  // Na het updaten, reset de bewerkingsmodus
+    axios
+      .put(`http://localhost:3000/api/tasks/${editTask._id}`, editTask)
+      .then((response) => {
+        setTasks(tasks.map((task) => (task._id === editTask._id ? response.data : task)));
+        setEditTask(null); // Na het updaten, reset de bewerkingsmodus
       })
-      .catch(error => console.error("Er is een fout bij het bijwerken van de taak", error));
+      .catch((error) => console.error("Er is een fout bij het bijwerken van de taak:", error));
   };
 
   return (
@@ -95,6 +96,7 @@ const TaskManager = () => {
         <button type="submit">Voeg Taak Toe</button>
       </form>
 
+      {/* Formulier voor het bewerken van een taak */}
       {editTask && (
         <form onSubmit={handleUpdateTask} className="task-form">
           <h3>Bewerk Taak</h3>
@@ -112,13 +114,15 @@ const TaskManager = () => {
             required
           ></textarea>
           <button type="submit">Werk Taak Bij</button>
-          <button type="button" onClick={() => setEditTask(null)}>Annuleer</button>
+          <button type="button" onClick={() => setEditTask(null)}>
+            Annuleer
+          </button>
         </form>
       )}
 
       {/* Lijst van taken */}
       <div className="task-list">
-        {tasks.map(task => (
+        {tasks.map((task) => (
           <div key={task._id} className="task-item">
             <h3>{task.title}</h3>
             <p>{task.description}</p>
@@ -127,7 +131,7 @@ const TaskManager = () => {
               {task.completed ? "Markeer als Niet Voltooid" : "Markeer als Voltooid"}
             </button>
             <button onClick={() => handleDeleteTask(task._id)}>Verwijder</button>
-            <button onClick={() => handleEditTask(task)}>Bewerken</button> {/* Bewerken knop */}
+            <button onClick={() => handleEditTask(task)}>Bewerken</button>
           </div>
         ))}
       </div>
