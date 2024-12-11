@@ -2,14 +2,17 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/TaskManager.css";
 
+
 const TaskManager = () => {
   const [tasks, setTasks] = useState([]); // Huidige taken
   const [newTask, setNewTask] = useState({ title: "", description: "", completed: false });
   const [editTask, setEditTask] = useState(null);  // Dit is voor de taak die we willen bewerken
+  // eslint-disable-next-line no-undef
+  const taskServiceUrl = process.env.REACT_APP_TASK_SERVICE_URL;
 
   // Ophalen van de taken bij het laden van de component
   useEffect(() => {
-    axios.get("http://localhost:3000/api/tasks")
+    axios.get(`${taskServiceUrl}/api/tasks`)
       .then(response => {
         setTasks(response.data);
       })
@@ -20,7 +23,7 @@ const TaskManager = () => {
   const handleAddTask = (e) => {
     e.preventDefault();
 
-    axios.post("http://localhost:3000/api/tasks", newTask)
+    axios.post(`${taskServiceUrl}/api/tasks`, newTask)
       .then(response => {
         setTasks([...tasks, response.data]); // Voeg de nieuwe taak toe aan de lijst
         setNewTask({ title: "", description: "", completed: false }); // Reset het formulier
@@ -30,7 +33,7 @@ const TaskManager = () => {
 
   // Verwijderen van een taak
   const handleDeleteTask = (taskId) => {
-    axios.delete(`http://localhost:3000/api/tasks/${taskId}`)
+    axios.delete(`${taskServiceUrl}/api/tasks/${taskId}`)
       .then(() => {
         setTasks(tasks.filter(task => task._id !== taskId)); // Verwijder de taak uit de lijst
       })
@@ -42,7 +45,7 @@ const TaskManager = () => {
     const taskToUpdate = tasks.find(task => task._id === taskId);
     const updatedTask = { ...taskToUpdate, completed: !taskToUpdate.completed };
 
-    axios.put(`http://localhost:3000/api/tasks/${taskId}`, updatedTask)
+    axios.put(`${taskServiceUrl}/api/tasks/${taskId}`, updatedTask)
       .then(response => {
         setTasks(tasks.map(task => task._id === taskId ? response.data : task));
       })
@@ -59,7 +62,7 @@ const TaskManager = () => {
     e.preventDefault();
     if (!editTask) return;
 
-    axios.put(`http://localhost:3000/api/tasks/${editTask._id}`, editTask)
+    axios.put(`${taskServiceUrl}/api/tasks/${editTask._id}`, editTask)
       .then(response => {
         setTasks(tasks.map(task => task._id === editTask._id ? response.data : task));
         setEditTask(null);  // Na het updaten, reset de bewerkingsmodus
