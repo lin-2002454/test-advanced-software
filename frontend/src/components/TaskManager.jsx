@@ -6,11 +6,12 @@ const TaskManager = () => {
   const [tasks, setTasks] = useState([]); // Huidige taken
   const [newTask, setNewTask] = useState({ title: "", description: "", completed: false });
   const [editTask, setEditTask] = useState(null); // Dit is voor de taak die we willen bewerken
-
+  const apiUrl = import.meta.env.VITE_API_URL;
+  
   // Ophalen van de taken bij het laden van de component
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/tasks")
+      .get(`${apiUrl}/api/tasks`)
       .then((response) => {
         setTasks(response.data);
       })
@@ -22,7 +23,7 @@ const TaskManager = () => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:3000/api/tasks", newTask)
+      .post(`${apiUrl}/api/tasks`, newTask)
       .then((response) => {
         setTasks([...tasks, response.data]); // Voeg de nieuwe taak toe aan de lijst
         setNewTask({ title: "", description: "", completed: false }); // Reset het formulier
@@ -33,7 +34,7 @@ const TaskManager = () => {
   // Verwijderen van een taak
   const handleDeleteTask = (taskId) => {
     axios
-      .delete(`http://localhost:3000/api/tasks/${taskId}`)
+      .delete(`${apiUrl}/api/tasks/${taskId}`)
       .then(() => {
         setTasks(tasks.filter((task) => task._id !== taskId)); // Verwijder de taak uit de lijst
       })
@@ -48,7 +49,7 @@ const TaskManager = () => {
     const updatedTask = { ...taskToUpdate, completed: !taskToUpdate.completed };
 
     axios
-      .put(`http://localhost:3000/api/tasks/${taskId}`, updatedTask)
+      .put(`${apiUrl}/api/tasks/${taskId}`, updatedTask)
       .then((response) => {
         setTasks(tasks.map((task) => (task._id === taskId ? response.data : task)));
       })
@@ -66,7 +67,7 @@ const TaskManager = () => {
     if (!editTask) return;
 
     axios
-      .put(`http://localhost:3000/api/tasks/${editTask._id}`, editTask)
+      .put(`${apiUrl}/api/tasks/${editTask._id}`, editTask)
       .then((response) => {
         setTasks(tasks.map((task) => (task._id === editTask._id ? response.data : task)));
         setEditTask(null); // Na het updaten, reset de bewerkingsmodus
