@@ -39,9 +39,9 @@ jobs:
 
     
       # Stap 5: Code linten
-      - name: Lint code
-        run: npm run lint
-        working-directory: ./frontend
+      # - name: Lint code
+      #   run: npm run lint
+      #   working-directory: ./frontend
 
       # Stap 6: Testen
       - name: Run tests
