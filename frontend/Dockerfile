@@ -13,7 +13,7 @@ RUN npm install
 # Kopieer de rest van de app-code naar de container
 COPY . .
 
-ENV VITE_API_URL=https://task-service-gtfzakeygucpf9c2.westeurope-01.azurewebsites.net
+COPY .env.production ./.env
 # Maak een productiebuild
 RUN npm run build
 
