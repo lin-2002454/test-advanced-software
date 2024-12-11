@@ -7,8 +7,11 @@ const TaskManager = () => {
   const [tasks, setTasks] = useState([]); // Huidige taken
   const [newTask, setNewTask] = useState({ title: "", description: "", completed: false });
   const [editTask, setEditTask] = useState(null);  // Dit is voor de taak die we willen bewerken
-  // eslint-disable-next-line no-undef
-  const taskServiceUrl = process.env.REACT_APP_TASK_SERVICE_URL;
+
+
+  const taskServiceUrl = import.meta.env.VITE_TASK_SERVICE_URL;
+  console.log(taskServiceUrl); // Dit zou je de waarde van je variabele moeten geven
+  
 
   // Ophalen van de taken bij het laden van de component
   useEffect(() => {
