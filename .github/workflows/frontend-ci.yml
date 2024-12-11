@@ -26,6 +26,10 @@ jobs:
         run: npm install
         working-directory: ./frontend  # Zorg ervoor dat het pad klopt met je projectstructuur
 
+      #Build the app
+      - name: Build the project
+        run: |
+          npm run build 
         
       # Stap 4: Start frontend server in de achtergrond
       - name: Start frontend server
