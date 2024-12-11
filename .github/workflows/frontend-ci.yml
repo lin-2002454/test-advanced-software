@@ -66,7 +66,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build --no-cache -t ghcr.io/${{ github.repository_owner }}/frontend-image:latest ./frontend
+         docker build --no-cache -t ghcr.io/${{ github.repository_owner }}/frontend-image:latest ./frontend
           
       # Push de Docker image naar de GitHub Container Registry
       - name: Push Docker image to GitHub Container Registry
