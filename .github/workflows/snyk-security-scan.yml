@@ -23,7 +23,15 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
         with:
          args: --all-projects 
-        
+
+         
+
+      - name: Upload task-service to Snyk dashboard
+        run: snyk monitor --file=task-service/package.json --project-name=task-service
+        env:
+         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+
       - name: Upload Snyk results to Snyk dashboard
         run: snyk monitor --all-projects
         env:
