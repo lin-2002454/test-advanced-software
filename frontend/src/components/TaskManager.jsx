@@ -16,7 +16,7 @@ const TaskManager = () => {
         setTasks(response.data);
       })
       .catch((error) => console.error("Er is een fout bij het ophalen van de taken:", error));
-  }, []);
+  }, [apiUrl]);
 
   // Toevoegen van een nieuwe taak
   const handleAddTask = (e) => {

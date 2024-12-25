@@ -28,6 +28,14 @@ jobs:
         run: npm install
         working-directory: ./backend/task-service
 
+      - name: Authenticate with Snyk
+        run: npx snyk auth ${{ secrets.SNYK_TOKEN }}  
+        working-directory: ./backend/task-service
+
+      - name: Run Snyk Test
+        run: npx snyk test  
+        working-directory: ./backend/task-service
+
         
       - name: Start server
         run: node index.js > out.log 2> err.log &

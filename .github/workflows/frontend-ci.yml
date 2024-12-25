@@ -26,34 +26,44 @@ jobs:
         run: npm install
         working-directory: ./frontend  # Zorg ervoor dat het pad klopt met je projectstructuur
 
+      # Stap 4: Authenticate with Snyk
+      - name: Authenticate with Snyk
+        run: npx snyk auth ${{ secrets.SNYK_TOKEN }} 
+        working-directory: ./frontend
+
+      # Stap 5: Run Snyk Test 
+      - name: Run Snyk Test
+        run: npx snyk test  
+        working-directory: ./frontend
+
       #Build the app
       - name: Build the project
         run: npm run build 
         working-directory: ./frontend
         
         
-      # Stap 4: Start frontend server in de achtergrond
+      # Stap 6: Start frontend server in de achtergrond
       - name: Start frontend server
         run:    nohup npm run dev &  # Start de ontwikkelserver op de achtergrond
         working-directory: ./frontend
 
     
-      # Stap 5: Code linten
+      # Stap 7: Code linten
       # - name: Lint code
       #   run: npm run lint
       #   working-directory: ./frontend
 
-      # Stap 6: Testen
+      # Stap 8: Testen
       - name: Run tests
         run: npm test
         working-directory: ./frontend/tests
 
-     # Stap 7: Run Cypress tests (in headless mode)
+     # Stap 9: Run Cypress tests (in headless mode)
       - name: Run Cypress tests
         run: npx cypress run
         working-directory: ./frontend
 
-     # Stap 8: Bouw de Docker image
+     # Stap 10: Bouw de Docker image
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
