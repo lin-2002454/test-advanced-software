@@ -84,7 +84,7 @@ jobs:
           docker push ghcr.io/${{ github.repository_owner }}/frontend-image:latest
   
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
                 app-name: 'TaskManagementToolUI'
                 publish-profile: ${{ secrets.AZURE_WEBAPP_UI_PUBLISH_PROFILE }} 
@@ -97,7 +97,7 @@ jobs:
       #   working-directory: ./frontend
      # Stap 9: Deploy naar Azure Web App (Gebruik publicatieprofiel als secret)
       # - name: Deploy to Azure Web App
-      #   uses: azure/webapps-deploy@v2
+      #   uses: azure/webapps-deploy@v3
       #   with:
       #       app-name: 'TaskManagerUI' 
       #       publish-profile: 
