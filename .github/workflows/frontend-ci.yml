@@ -17,7 +17,7 @@ jobs:
 
       # Stap 2: Node.js instellen
       - name: Setup Node.js
-        uses: actions/setup-node@v3  # Gebruik de nieuwste versie
+        uses: actions/setup-node@v4  # Gebruik de nieuwste versie
         with:
           node-version: '20.17.0'  # Zorg ervoor dat dit overeenkomt met je Node.js versie
 
