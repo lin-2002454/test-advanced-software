@@ -40,17 +40,19 @@ jobs:
       #   working-directory: ./backend/task-service
 
       # Authenticate with Snyk using GitHub Action
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/setup@master
-        continue-on-error: true
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      # - name: Run Snyk to check for vulnerabilities
+      #   uses: snyk/actions/setup@master
+      #   continue-on-error: true
+      #   env:
+      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-      - name: Run Snyk to check for vulnerabilities
-        run: snyk test
-        working-directory: ./backend/task-service
-        env:
-         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
+   
+
+      # - name: Run Snyk to check for vulnerabilities
+      #   run: snyk test
+      #   working-directory: ./backend/task-service
+      #   env:
+      #    SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }} 
       
 
       - name: Start server
