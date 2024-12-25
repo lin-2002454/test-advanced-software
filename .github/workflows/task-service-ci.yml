@@ -29,6 +29,14 @@ jobs:
         run: npm install
         working-directory: ./backend/task-service
 
+         # Stap 4: Run Snyk to check for vulnerabilities
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true # Zorg ervoor dat de pipeline niet faalt bij een Snyk-fout
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          working-directory: ./backend/task-service
+
 
 
       # - name: Authenticate with Snyk
