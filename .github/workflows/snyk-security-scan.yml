@@ -25,7 +25,9 @@ jobs:
          args: --all-projects 
         
       - name: Upload Snyk results to Snyk dashboard
-        run: snyk monitor --all-projects
+        uses: snyk monitor 
+        with:
+            args: --all-projects
         env:
          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
