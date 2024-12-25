@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Stap 1: Code uitchecken
-      - uses: actions/checkout@v3  # Gebruik de nieuwste versie
+      - uses: actions/checkout@v4  # Gebruik de nieuwste versie
 
       # Stap 2: Node.js instellen
       - name: Setup Node.js
