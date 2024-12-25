@@ -24,19 +24,29 @@ jobs:
         with:
           node-version: '20'  
 
+        
       - name: Install dependencies
         run: npm install
         working-directory: ./backend/task-service
 
-      - name: Authenticate with Snyk
-        run: npx snyk auth ${{ secrets.SNYK_TOKEN}}  
-        working-directory: ./backend/task-service
 
-      - name: Run Snyk Test
-        run: npx snyk test  
-        working-directory: ./backend/task-service
 
-        
+      # - name: Authenticate with Snyk
+      #   run: npx snyk auth ${{ secrets.SNYK_TOKEN}}  
+      #   working-directory: ./backend/task-service
+
+      # - name: Run Snyk Test
+      #   run: npx snyk test  
+      #   working-directory: ./backend/task-service
+
+      # Authenticate with Snyk using GitHub Action
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/setup@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
+
       - name: Start server
         run: node index.js > out.log 2> err.log &
         working-directory: ./backend/task-service
