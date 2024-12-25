@@ -27,7 +27,7 @@ jobs:
          
 
       - name: Upload task-service to Snyk dashboard
-        run: snyk monitor --file=task-service/package.json --project-name=task-service
+        run: snyk monitor --file=backend/task-service/package.json --project-name=task-service
         env:
          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
